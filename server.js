@@ -16,7 +16,6 @@ function handleDisconnect() {
   connection.connect((err) => {
     if (err) {
       console.error("Error connecting to MySQL:", err);
-      setTimeout(handleDisconnect, 5000);
       return;
     }
     console.log("Connected to MySQL");
@@ -48,6 +47,10 @@ app.get("/", (req, res) => {
 
     // Send the retrieved users as JSON
     res.json(results);
+  });
+
+  app.get("/test", (req, res) => {
+    res.status(200).send("Hello world");
   });
 });
 
