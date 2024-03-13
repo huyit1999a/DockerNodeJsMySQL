@@ -1,0 +1,32 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and run Docker Compose services
+        run: |
+          docker-compose up -d --build
+
+      - name: Run tests
+        run: |
+          docker-compose exec backend npm test
+
+      - name: Stop Docker Compose services
+        run: |
+          docker-compose down
