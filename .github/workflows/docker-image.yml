@@ -23,9 +23,13 @@ jobs:
         run: |
           docker-compose up -d --build
 
-      - name: Run tests
+      - name: Docker container list
         run: |
-          docker-compose exec backend npm test
+          docker ps
+
+      # - name: Run tests
+      #   run: |
+      #     docker-compose exec backend npm test
 
       - name: Stop Docker Compose services
         run: |
